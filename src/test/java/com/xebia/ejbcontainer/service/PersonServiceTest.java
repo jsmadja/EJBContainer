@@ -3,6 +3,7 @@ package com.xebia.ejbcontainer.service;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,28 +25,27 @@ public class PersonServiceTest {
 	private static IPersonService service;
 	private static Context context;
 	
-	public static void initJBoss() throws NamingException {
-		container = EJBContainer.createEJBContainer();
-		context = container.getContext();
-		service = (IPersonService) context.lookup(PersonService.class.getSimpleName()+"/local");
-	}
+	private static final String JNDI_NAME_JBOSS = "{0}/local";
+	private static final String JNDI_NAME_GLASSFISH = "java:global/classes.ext/{0}";
 	
 	@BeforeClass
-	public static void initGlassfish() throws NamingException {
+	public static void init() throws NamingException {
 		Map<String, Object> properties = new HashMap<String, Object>();
 		properties.put(EJBContainer.MODULES, new File("target/classes.ext"));
 		container = EJBContainer.createEJBContainer(properties);
 		context = container.getContext();
-		service = (IPersonService) context.lookup("java:global/classes.ext/"+PersonService.class.getSimpleName());
+		service = (IPersonService) context.lookup(getJndiName(PersonService.class));
 	}
 	
 	@AfterClass
 	public static void cleanup() throws NamingException {
-		if (context != null) {
-			context.close();
-		}
-		if (container != null) {
-			container.close();
+		if (!isJbossContainer()) {
+			if (context != null) {
+				context.close();
+			}
+			if (container != null) {
+				container.close();
+			}
 		}
 	}
 	
@@ -93,4 +93,16 @@ public class PersonServiceTest {
 		service.find(person.getId());
 	}
 
+	private static String getJndiName(Class<?> clazz) {
+		String pattern = JNDI_NAME_GLASSFISH;
+		if (isJbossContainer()) {
+			pattern = JNDI_NAME_JBOSS;
+		}
+		return MessageFormat.format(pattern, clazz.getSimpleName());
+	}
+
+	private static boolean isJbossContainer() {
+		return System.getProperty("jboss.home") != null;
+	}
+	
 }
