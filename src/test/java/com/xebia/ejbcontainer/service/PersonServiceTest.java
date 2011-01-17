@@ -24,19 +24,19 @@ public class PersonServiceTest {
 	private static IPersonService service;
 	private static Context context;
 	
-	@BeforeClass
 	public static void initJBoss() throws NamingException {
 		container = EJBContainer.createEJBContainer();
 		context = container.getContext();
-		service = (IPersonService) context.lookup("PersonService/local");
+		service = (IPersonService) context.lookup(PersonService.class.getSimpleName()+"/local");
 	}
 	
+	@BeforeClass
 	public static void initGlassfish() throws NamingException {
 		Map<String, Object> properties = new HashMap<String, Object>();
-		properties.put(EJBContainer.MODULES, new File("target/classes"));
+		properties.put(EJBContainer.MODULES, new File("target/classes.ext"));
 		container = EJBContainer.createEJBContainer(properties);
 		context = container.getContext();
-		service = (IPersonService) context.lookup("java:global/classes/"+PersonService.class.getSimpleName());
+		service = (IPersonService) context.lookup("java:global/classes.ext/"+PersonService.class.getSimpleName());
 	}
 	
 	@AfterClass

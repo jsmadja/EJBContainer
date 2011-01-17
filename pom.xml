@@ -9,7 +9,7 @@
 	<url>http://www.xebia.fr/</url>
 
 	<profiles>
-
+		<!-- Glassfish profile configuration -->
 		<profile>
 			<id>glassfish</id>
 			<build>
@@ -39,9 +39,16 @@
 					<version>2.0.1</version>
 					<scope>provided</scope>
 				</dependency>
+				<dependency>
+					<groupId>org.eclipse.persistence</groupId>
+					<artifactId>javax.persistence</artifactId>
+					<version>2.0.0</version>
+					<scope>provided</scope>
+				</dependency>
 			</dependencies>
 		</profile>
 
+		<!-- Glassfish profile configuration -->
 		<profile>
 			<id>jboss</id>
 			<build>
@@ -52,25 +59,26 @@
 					</resource>
 				</resources>
 				<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.7.1</version>
-					<configuration>
-						<argLine>${surefire.jvm.args}</argLine>
-					</configuration>
-				</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>2.7.1</version>
+						<configuration>
+							<argLine>${surefire.jvm.args}</argLine>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 			<properties>
-				<jboss.home>/Users/juliensmadja/Desktop/jboss-6.0.0.Final</jboss.home>
-				<test.jvm.arguments>-Xms128m -Xmx512m -XX:MaxPermSize=256m
+				<jboss.home>${JBOSS_HOME}</jboss.home>
+				<test.jvm.arguments>
+					-Xms128m -Xmx512m -XX:MaxPermSize=256m
 					-Dorg.jboss.resolver.warning=true
 					-Dsun.rmi.dgc.client.gcInterval=3600000
 					-Dsun.rmi.dgc.server.gcInterval=3600000 -Dprogram.name=run.sh
 					-Djava.library.path=/Users/juliensmadja/Desktop/jboss-6.0.0.Final/bin/native/lib64
-					-Djava.endorsed.dirs=/Users/juliensmadja/Desktop/jboss-6.0.0.Final/lib/endorsed </test.jvm.arguments>
-				<!-- the sufire.jvm.args can be overridden my specific profiles -->
+					-Djava.endorsed.dirs=/Users/juliensmadja/Desktop/jboss-6.0.0.Final/lib/endorsed
+				</test.jvm.arguments>
 				<surefire.jvm.args>${test.jvm.arguments}</surefire.jvm.args>
 			</properties>
 			<dependencies>
@@ -130,33 +138,15 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>javax.persistence</artifactId>
-			<version>2.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>4.8.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
-	<repositories>
-		<repository>
-			<id>jboss</id>
-			<name>JBoss Repository</name>
-			<url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
-		</repository>
-		<repository>
-			<id>java.net</id>
-			<name>Java.net Repository</name>
-			<url>http://download.java.net/maven/glassfish</url>
-		</repository>
-	</repositories>
-
 	<build>
+		<outputDirectory>target/classes.ext</outputDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -169,5 +159,18 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<repositories>
+		<repository>
+			<id>jboss</id>
+			<name>JBoss Repository</name>
+			<url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+		</repository>
+		<repository>
+			<id>java.net</id>
+			<name>Java.net Repository</name>
+			<url>http://download.java.net/maven/glassfish</url>
+		</repository>
+	</repositories>
 
 </project>
