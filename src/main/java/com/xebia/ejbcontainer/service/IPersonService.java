@@ -6,10 +6,5 @@ import com.xebia.ejbcontainer.domain.Person;
 
 public interface IPersonService {
 
-	Person create(Person person);
-	Person find(Long id);
-	List<Person> retrieveAll();
-	Person update(Person person);
-	void delete(Person person);
-	void deleteAll();
+    Person create(Person person);
 }

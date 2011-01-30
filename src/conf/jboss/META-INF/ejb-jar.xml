@@ -12,5 +12,11 @@
         <ejb-class>com.xebia.ejbcontainer.service.PersonService</ejb-class>
         <session-type>Stateless</session-type>
       </session>
+      <session>
+        <ejb-name>HelloWorldService</ejb-name>
+        <local-bean/>
+        <ejb-class>com.xebia.ejbcontainer.service.HelloWorldService</ejb-class>
+        <session-type>Stateless</session-type>
+      </session>
    </enterprise-beans>
 </ejb-jar>

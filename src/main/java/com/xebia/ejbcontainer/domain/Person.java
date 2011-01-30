@@ -8,50 +8,48 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name ="retrieveAllPersons", query = "SELECT p FROM Person p"),
-	@NamedQuery(name = "deleteAllPersons", query = "DELETE FROM Person p")
+    @NamedQuery(name = "retrieveAllPersons", query = "SELECT p FROM Person p"),
+    @NamedQuery(name = "deleteAllPersons", query = "DELETE FROM Person p")
 })
 public class Person {
 
-	@Id
-	@GeneratedValue
-	private Long id;
-	
-	private String firstName;
-	
-	private String lastName;
-	
-	public Person() {
-		
-	}
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	public Person(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-	}
+    private String firstName;
 
-	public Long getId() {
-		return id;
-	}
+    private String lastName;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Person() {
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public Person(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

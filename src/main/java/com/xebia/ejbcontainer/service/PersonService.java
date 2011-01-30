@@ -1,47 +1,34 @@
 package com.xebia.ejbcontainer.service;
 
-import java.util.List;
-
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
-
 
 import com.xebia.ejbcontainer.domain.Person;
 
 @Stateless
 @Local
+/**
+ * Service permettant la gestion des entités Person avec la base de données
+ * Seule la méthode de création est implémentée.
+ */
 public class PersonService implements IPersonService {
 
-	@PersistenceContext
-	EntityManager em;
-	
-	public Person create(Person person) {
-		em.persist(person);
-		return person;
-	}
-	
-	public Person find(Long id) {
-		return em.find(Person.class, id);
-	}
+    @PersistenceContext
+    EntityManager em;
 
-	public List<Person> retrieveAll() {
-		TypedQuery<Person> query = em.createNamedQuery("retrieveAllPersons", Person.class);
-		return query.getResultList();
-	}
-	
-	public Person update(Person person) {
-		return em.merge(person);
-	}
-	
-	public void delete(Person person) {
-		em.remove(em.merge(person));
-	}
+    /**
+     * Crée une nouvelle Person dans la base de données.
+     * Méthode transactionnelle :
+     *  @TransactionAttribute(TransactionAttributeType.REQUIRED) implicite
+     * @param person une instance de Person
+     * @return L'instance de personne persistée, champ Id initialisé
+     */
+    @Override
+    public Person create(Person person) {
+        em.persist(person);
+        return person;
+    }
 
-	public void deleteAll() {
-		em.createNamedQuery("deleteAllPersons").executeUpdate();
-	}
-	
 }
