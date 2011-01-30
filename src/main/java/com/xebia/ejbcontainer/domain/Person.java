@@ -3,14 +3,8 @@ package com.xebia.ejbcontainer.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "retrieveAllPersons", query = "SELECT p FROM Person p"),
-    @NamedQuery(name = "deleteAllPersons", query = "DELETE FROM Person p")
-})
 public class Person {
 
     @Id

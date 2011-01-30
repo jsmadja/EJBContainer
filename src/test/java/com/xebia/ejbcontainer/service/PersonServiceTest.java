@@ -23,10 +23,10 @@ public class PersonServiceTest {
     private static IPersonService personService;
 
     /***
-     * Méthode d'initialisation appelée une seule fois lors de l'exécution
+     * M√©thode d'initialisation appel√©e une seule fois lors de l'ex√©cution
      * des tests de PersonServiceTest.
-     * C'est l'endroit idéal pour démarrer l'EJBContainer et récupérer
-     * les EJB à tester.
+     * C'est l'endroit id√©al pour d√©marrer l'EJBContainer et r√©cup√©rer
+     * les EJB √† tester.
      * @throws NamingException
      */
     @BeforeClass
@@ -36,16 +36,16 @@ public class PersonServiceTest {
         ec = EJBContainer.createEJBContainer(properties);
         Context ctx = ec.getContext();
 
-        // le nom JNDI d'un EJB dépend du serveur d'application utilisé
+        // le nom JNDI d'un EJB d√©pend du serveur d'application utilis√©
         String personServiceName = PersonService.class.getSimpleName();
         personServiceName = isJbossContainer() ? personServiceName + "/local" : "java:global/classes.ext/" + personServiceName;
         personService = (IPersonService) ctx.lookup(personServiceName);
     }
 
     /***
-     * Méthode de test qui vérifie la création d'un objet Person dans la
-     * base de données. L'instance obtient un identifiant après avoir été
-     * persistée par l'EntityManager.
+     * M√©thode de test qui v√©rifie la cr√©ation d'un objet Person dans la
+     * base de donn√©es. L'instance obtient un identifiant apr√©s avoir √©t√©
+     * persist√©e par l'EntityManager.
      */
     @Test
     public void should_create_a_person() {
@@ -55,10 +55,10 @@ public class PersonServiceTest {
     }
 
     /***
-     * Méthode de nettoyage appelée une seule fois après l'exécution de
+     * M√©thode de nettoyage appel√©e une seule fois apr√®s l'ex√©cution de
      * l'ensemble des tests unitaires de PersonServiceTest.
-     * C'est l'endroit idéal pour fermer le contexte JNDI et l'EJBContainer.
-     * Un bug de JBoss nous contraint à ne pas appeler les méthodes close()
+     * C'est l'endroit id√©al pour fermer le contexte JNDI et l'EJBContainer.
+     * Un bug de JBoss nous contraint √† ne pas appeler les m√©thodes close()
      * sur context et container.
      * @throws NamingException
      */

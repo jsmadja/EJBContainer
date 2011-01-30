@@ -18,10 +18,10 @@ public class HelloWorldServiceTest {
     private static IHelloWorldService helloWorldService;
 
     /***
-     * Méthode d'initialisation appelée une seule fois lors de l'exécution
+     * M√©thode d'initialisation appel√©e une seule fois lors de l'ex√©cution
      * des tests de HelloServiceTest.
-     * C'est l'endroit idéal pour démarrer l'EJBContainer et récupérer
-     * les EJB à tester.
+     * C'est l'endroit id√©al pour d√©marrer l'EJBContainer et r√©cup√©rer
+     * les EJB √† tester.
      * @throws NamingException
      */
     @BeforeClass
@@ -31,15 +31,14 @@ public class HelloWorldServiceTest {
         ec = EJBContainer.createEJBContainer(properties);
         Context ctx = ec.getContext();
 
-        // le nom JNDI d'un EJB dépend du serveur d'application utilisé
+        // le nom JNDI d'un EJB d√©pend du serveur d'application utilis√©
         String helloWorldServiceName = HelloWorldService.class.getSimpleName();
         helloWorldServiceName = isJbossContainer() ? helloWorldServiceName + "/local" : "java:global/classes.ext/" + helloWorldServiceName;
         helloWorldService = (IHelloWorldService) ctx.lookup(helloWorldServiceName);
-
     }
 
     /***
-     * Méthode de test qui vérifie que nous avons bien récupéré l'EJB
+     * M√©thode de test qui v√©rifie que nous avons bien r√©cup√©r√© l'EJB
      * HelloWorldService et qu'il est fonctionnel
      */
     @Test
@@ -48,10 +47,10 @@ public class HelloWorldServiceTest {
     }
 
     /***
-     * Méthode de nettoyage appelée une seule fois après l'exécution de
+     * M√©thode de nettoyage appel√©e une seule fois apr√®s l'ex√©cution de
      * l'ensemble des tests unitaires de HelloServiceTest.
-     * C'est l'endroit idéal pour fermer le contexte JNDI et l'EJBContainer.
-     * Un bug de JBoss nous contraint à ne pas appeler les méthodes close()
+     * C'est l'endroit id√©al pour fermer le contexte JNDI et l'EJBContainer.
+     * Un bug de JBoss nous contraint √† ne pas appeler les m√©thodes close()
      * sur context et container.
      * @throws NamingException
      */
@@ -65,5 +64,4 @@ public class HelloWorldServiceTest {
     private static boolean isJbossContainer() {
         return System.getProperty("jboss.home") != null;
     }
-
 }

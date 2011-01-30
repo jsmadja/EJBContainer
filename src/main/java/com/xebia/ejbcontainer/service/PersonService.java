@@ -10,8 +10,8 @@ import com.xebia.ejbcontainer.domain.Person;
 @Stateless
 @Local
 /**
- * Service permettant la gestion des entités Person avec la base de données
- * Seule la méthode de création est implémentée.
+ * Service permettant la gestion des entit√©s Person avec la base de donn√©es
+ * Seule la m√©thode de cr√©ation est impl√©ment√©e.
  */
 public class PersonService implements IPersonService {
 
@@ -19,11 +19,11 @@ public class PersonService implements IPersonService {
     EntityManager em;
 
     /**
-     * Crée une nouvelle Person dans la base de données.
-     * Méthode transactionnelle :
+     * Cr√©e une nouvelle Person dans la base de donn√©es.
+     * M√©thode transactionnelle :
      *  @TransactionAttribute(TransactionAttributeType.REQUIRED) implicite
      * @param person une instance de Person
-     * @return L'instance de personne persistée, champ Id initialisé
+     * @return L'instance de personne persist√©e, champ Id initialis√©
      */
     @Override
     public Person create(Person person) {
