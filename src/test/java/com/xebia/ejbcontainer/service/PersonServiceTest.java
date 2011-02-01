@@ -18,7 +18,7 @@ import com.xebia.ejbcontainer.domain.Person;
 
 public class PersonServiceTest {
 
-    private static EJBContainer ec;
+    private static EJBContainer ejbContainer;
 
     private static IPersonService personService;
 
@@ -33,8 +33,8 @@ public class PersonServiceTest {
     public static void init() throws NamingException {
         Map<String, Object> properties = new HashMap<String, Object>();
         properties.put(EJBContainer.MODULES, new File("target/classes.ext"));
-        ec = EJBContainer.createEJBContainer(properties);
-        Context ctx = ec.getContext();
+        ejbContainer = EJBContainer.createEJBContainer(properties);
+        Context ctx = ejbContainer.getContext();
 
         // le nom JNDI d'un EJB dépend du serveur d'application utilisé
         String personServiceName = PersonService.class.getSimpleName();
@@ -58,15 +58,11 @@ public class PersonServiceTest {
      * Méthode de nettoyage appelée une seule fois après l'exécution de
      * l'ensemble des tests unitaires de PersonServiceTest.
      * C'est l'endroit idéal pour fermer le contexte JNDI et l'EJBContainer.
-     * Un bug de JBoss nous contraint à ne pas appeler les méthodes close()
-     * sur context et container.
      * @throws NamingException
      */
     @AfterClass
     public static void cleanup() throws NamingException {
-        if (!isJbossContainer()) {
-            ec.close();
-        }
+        ejbContainer.close();
     }
 
     private static boolean isJbossContainer() {
